@@ -1,0 +1,74 @@
+<html>
+<head>
+    <title>Tool Tip</title>
+
+
+<style>
+#tip{
+ position : absolute;
+ border : 1px solid gray;
+ background-color : #efefef;
+ padding : 3px;
+ z-index: 1000;
+ /* set this to create word wrap */
+ max-width: 200px;
+
+}
+</style>
+
+<script src="raphael-min.js" type="text/javascript" charset="utf-8"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/2.1.3/jquery.min.js" type="text/javascript" charset="utf-8"></script>
+<script>
+window.onload = function () {
+
+
+var paper = Raphael(0,0, 400, 400);
+
+var c = paper.circle(100,100,20);
+c.attr("fill", "red");
+addTip(c.node, "You are rolling over a circle");
+
+var r = paper.rect(200,100,40,40);
+r.attr("fill", "gray");
+r.rotate(45);
+addTip(r.node, "You are rolling over a rectangle");
+
+var tip = $("#tip").hide();
+var tipText = "";
+var over = false;
+
+
+$(document).mousemove(function(e){
+    if (over){
+      tip.css("left", e.clientX+20).css("top", e.clientY+20);
+      tip.text(tipText);
+    }
+});
+
+function addTip(node, txt){
+    $(node).mouseenter(function(){
+       tipText = txt;
+       tip.fadeIn();
+       over = true;
+    }).mouseleave(function(){
+       tip.fadeOut(200);
+       over = false;
+    });
+}
+
+}
+
+
+
+</script>
+    </head>
+<body>
+   
+<div id="tip"></div>
+
+<script>
+
+</script>
+
+</body>
+</html>

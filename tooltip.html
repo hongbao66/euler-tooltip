@@ -1,0 +1,88 @@
+<html>
+<head>
+    <title>Tool Tip</title>
+
+
+<style>
+#tip{
+ position : absolute;
+ border : 1px solid gray;
+ background-color : #efefef;
+ padding : 3px;
+ z-index: 1000;
+ /* set this to create word wrap */
+ max-width: 200px;
+
+}
+</style>
+
+<script src="raphael-min.js" type="text/javascript" charset="utf-8">
+</script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/2.1.3/jquery.min.js" type="text/javascript" charset="utf-8">
+</script>
+
+<script>
+window.onload = function () {
+
+
+
+var paper = Raphael("canvas",1000, 1000);
+
+
+var dot1 = paper.circle(250, 150, 100).attr("fill", "#bf2f2f").attr("stroke", "#FFFFFF").attr("stroke-width", 3);
+
+var dot2 = paper.circle(250, 160, 90).attr("fill", "#bf852f").attr("stroke", "#FFFFFF").attr("stroke-width", 3);
+
+var dot3 = paper.circle(250, 170, 80).attr("fill", "#a2bf2f").attr("stroke", "#FFFFFF").attr("stroke-width", 3);
+
+var dot4 = paper.circle(250, 180, 70).attr("fill", "#4cbf2f").attr("stroke", "#FFFFFF").attr("stroke-width", 3);
+
+var dot5 = paper.circle(250, 190, 60).attr("fill", "#2fbf69").attr("stroke", "#FFFFFF").attr("stroke-width", 3);
+
+var dot6 = paper.circle(250, 200, 50).attr("fill", "#2fbfbf").attr("stroke", "#FFFFFF").attr("stroke-width", 3);
+
+addTip(dot1.node, "Gotham");
+addTip(dot2.node, "Metropolis");
+addTip(dot3.node, "Star City");
+addTip(dot4.node, "Atlantis");
+addTip(dot5.node, "Paradise Island");
+addTip(dot6.node, "Central City");
+
+var tip = $("#tip").hide();
+var tipText = "";
+var over = false;
+
+
+$(document).mousemove(function(e){
+    if (over){
+      tip.css("left", e.clientX+20).css("top", e.clientY+20);
+      tip.text(tipText);
+    }
+});
+
+function addTip(node, txt){
+    $(node).mouseenter(function(){
+       tipText = txt;
+       tip.fadeIn();
+       over = true;
+    }).mouseleave(function(){
+       tip.fadeOut(200);
+       over = false;
+    });
+}
+
+
+}
+
+
+
+</script>
+    </head>
+<body>
+   
+<div id="canvas"></div>
+<div id="tip"></div>
+
+
+</body>
+</html>
